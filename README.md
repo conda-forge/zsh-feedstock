@@ -5,7 +5,7 @@ Home: http://www.zsh.org
 
 Package license: Custom
 
-Feedstock license: BSD 3-Clause
+Feedstock license: BSD-3-Clause
 
 Summary: Zsh is a shell designed for interactive use, although it is also a powerful scripting language.
 
