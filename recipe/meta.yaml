@@ -13,7 +13,7 @@ source:
     - skip-N-cond-test.patch  # [linux]
 
 build:
-  number: 1000
+  number: 1001
   skip: true  # [win]
   script: |
     ./configure --prefix="$PREFIX" --with-tcsetpgrp --enable-pcre
