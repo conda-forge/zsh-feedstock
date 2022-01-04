@@ -1,7 +1,7 @@
 About zsh
 =========
 
-Home: http://www.zsh.org
+Home: https://zsh.org/
 
 Package license: Custom
 
@@ -9,9 +9,9 @@ Feedstock license: [BSD-3-Clause](https://github.com/conda-forge/zsh-feedstock/b
 
 Summary: Zsh is a shell designed for interactive use, although it is also a powerful scripting language.
 
-Development: https://sourceforge.net/p/zsh/code/ci/master/tree/
+Development: https://sourceforge.net/p/zsh/code/ci/master/tree
 
-Documentation: http://zsh.sourceforge.net/Doc/Release/zsh_toc.html
+Documentation: https://zsh.sourceforge.io/Doc/Release/zsh_toc.html
 
 Current build status
 ====================
@@ -66,6 +66,7 @@ Installing `zsh` from the `conda-forge` channel can be achieved by adding `conda
 
 ```
 conda config --add channels conda-forge
+conda config --set channel_priority strict
 ```
 
 Once the `conda-forge` channel has been enabled, `zsh` can be installed with:
@@ -84,7 +85,8 @@ conda search zsh --channel conda-forge
 About conda-forge
 =================
 
-[![Powered by NumFOCUS](https://img.shields.io/badge/powered%20by-NumFOCUS-orange.svg?style=flat&colorA=E1523D&colorB=007D8A)](http://numfocus.org)
+[![Powered by
+NumFOCUS](https://img.shields.io/badge/powered%20by-NumFOCUS-orange.svg?style=flat&colorA=E1523D&colorB=007D8A)](https://numfocus.org)
 
 conda-forge is a community-led conda channel of installable packages.
 In order to provide high-quality builds, the process has been automated into the
