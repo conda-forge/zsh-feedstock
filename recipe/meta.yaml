@@ -6,7 +6,6 @@ package:
 
 source:
   url: https://cfhcable.dl.sourceforge.net/project/zsh/zsh/{{ version }}/zsh-{{ version }}.tar.xz
-  fn: zsh-{{ version }}.tar.xz
   sha256: dcc4b54cc5565670a65581760261c163d720991f0d06486da61f8d839b52de27
   patches:
     # Skip a test that fails on CI, some filesystem weirdness
@@ -24,6 +23,7 @@ build:
 requirements:
   build:
     - {{ compiler('c') }}
+    - make
   host:
     - ncurses
     - pcre
@@ -47,3 +47,4 @@ about:
 extra:
   recipe-maintainers:
     - djsutherland
+    - matthiasdiener
