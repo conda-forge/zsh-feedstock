@@ -12,7 +12,7 @@ source:
     - skip-N-cond-test.patch
 
 build:
-  number: 0
+  number: 1
   skip: true  # [win]
   script: |
     ./configure --prefix="$PREFIX" --with-tcsetpgrp --enable-pcre
