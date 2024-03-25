@@ -11,12 +11,6 @@ source:
 build:
   number: 1
   skip: true  # [win]
-  script: |
-    cp $BUILD_PREFIX/share/gnuconfig/config.* .
-    ./configure --prefix="$PREFIX" --with-tcsetpgrp --enable-pcre
-    make
-    make check
-    make install
 
 requirements:
   build:
@@ -26,8 +20,6 @@ requirements:
   host:
     - ncurses
     - pcre
-  run:
-    - ncurses
 
 test:
   commands:
