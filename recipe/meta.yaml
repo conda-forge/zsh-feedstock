@@ -7,14 +7,12 @@ package:
 source:
   url: https://cfhcable.dl.sourceforge.net/project/zsh/zsh/{{ version }}/zsh-{{ version }}.tar.xz
   sha256: 9b8d1ecedd5b5e81fbf1918e876752a7dd948e05c1a0dba10ab863842d45acd5
-  patches:
-    # Skip a test that fails on CI, some filesystem weirdness
-    - skip-N-cond-test.patch
 
 build:
-  number: 0
+  number: 1
   skip: true  # [win]
   script: |
+    cp $BUILD_PREFIX/share/gnuconfig/config.* .
     ./configure --prefix="$PREFIX" --with-tcsetpgrp --enable-pcre
     make
     make check
@@ -24,6 +22,7 @@ requirements:
   build:
     - {{ compiler('c') }}
     - make
+    - gnuconfig   # [unix]
   host:
     - ncurses
     - pcre
