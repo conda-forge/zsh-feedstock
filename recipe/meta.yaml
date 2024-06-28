@@ -7,28 +7,20 @@ package:
 source:
   url: https://cfhcable.dl.sourceforge.net/project/zsh/zsh/{{ version }}/zsh-{{ version }}.tar.xz
   sha256: 9b8d1ecedd5b5e81fbf1918e876752a7dd948e05c1a0dba10ab863842d45acd5
-  patches:
-    # Skip a test that fails on CI, some filesystem weirdness
-    - skip-N-cond-test.patch
 
 build:
-  number: 0
+  number: 1
   skip: true  # [win]
-  script: |
-    ./configure --prefix="$PREFIX" --with-tcsetpgrp --enable-pcre
-    make
-    make check
-    make install
 
 requirements:
   build:
     - {{ compiler('c') }}
+    - {{ stdlib("c") }}
     - make
+    - gnuconfig   # [unix]
   host:
     - ncurses
     - pcre
-  run:
-    - ncurses
 
 test:
   commands:
@@ -37,7 +29,7 @@ test:
 
 about:
   home: https://zsh.org/
-  license: Custom
+  license: MIT
   license_family: MIT
   license_file: LICENCE
   summary: Zsh is a shell designed for interactive use, although it is also a powerful scripting language.
