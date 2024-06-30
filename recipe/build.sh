@@ -14,7 +14,6 @@ export CFLAGS+=" -Wno-implicit-function-declaration -Wno-implicit-int"
     --enable-multibyte \
     --enable-pcre \
     --enable-zsh-secure-free \
-    --enable-etcdir=/etc \
     --with-tcsetpgrp \
     DL_EXT=bundle \
 
