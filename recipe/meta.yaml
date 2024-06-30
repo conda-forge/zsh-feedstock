@@ -9,7 +9,7 @@ source:
   sha256: 9b8d1ecedd5b5e81fbf1918e876752a7dd948e05c1a0dba10ab863842d45acd5
 
 build:
-  number: 1
+  number: 2
   skip: true  # [win]
 
 requirements:
@@ -18,14 +18,16 @@ requirements:
     - {{ stdlib("c") }}
     - make
     - gnuconfig   # [unix]
+    - texinfo     # [linux]
   host:
     - ncurses
     - pcre
 
 test:
   commands:
+    - test -f $PREFIX/bin/zsh
     - zsh --version
-    - zsh -c 'echo hi'
+    - zsh -c 'echo hi' | grep hi
 
 about:
   home: https://zsh.org/
