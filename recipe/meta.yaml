@@ -18,6 +18,7 @@ requirements:
     - {{ stdlib("c") }}
     - make
     - gnuconfig   # [unix]
+    - texinfo     # [linux]
   host:
     - ncurses
     - pcre
