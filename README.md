@@ -5,7 +5,7 @@ Feedstock license: [BSD-3-Clause](https://github.com/conda-forge/zsh-feedstock/b
 
 Home: https://zsh.org/
 
-Package license: Custom
+Package license: MIT
 
 Summary: Zsh is a shell designed for interactive use, although it is also a powerful scripting language.
 
