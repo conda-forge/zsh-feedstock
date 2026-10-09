@@ -26,6 +26,8 @@ requirements:
   host:
     - ncurses
     - pcre2
+    - if: linux
+      then: libcap
 
 tests:
   - package_contents:
@@ -38,6 +40,8 @@ tests:
       - zsh -c 'echo hi' | grep hi
       # Check that the installed PCRE2 module loads and matches; configure can silently omit it.
       - zsh -fc 'zmodload zsh/pcre && [[ abc -pcre-match "a.c" ]]'
+      - if: linux
+        then: zsh -fc 'zmodload zsh/cap && cap'
 
 about:
   homepage: https://zsh.org/
