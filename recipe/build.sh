@@ -8,6 +8,12 @@ cp $BUILD_PREFIX/share/gnuconfig/config.* .
 # Work around https://github.com/Homebrew/homebrew-core/pull/64923
 export CFLAGS+=" -Wno-implicit-function-declaration -Wno-implicit-int"
 
+if [[ "$target_platform" == linux-* ]]; then
+    # Keep ZSH_VERSION separate from relocatable paths such as $PREFIX/lib/zsh/<version>.
+    # Otherwise prefix replacement can zero out a shared version-string suffix.
+    export CFLAGS+=" -fno-merge-constants"
+fi
+
 ./configure --prefix="$PREFIX" \
     --enable-cap \
     --enable-maildir-support \

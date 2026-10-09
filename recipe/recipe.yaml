@@ -33,6 +33,8 @@ tests:
         - zsh
   - script:
       - zsh --version | grep -F "zsh ${{ version }} "
+      # Verify prefix relocation did not overwrite a version string shared with a path.
+      - zsh -fc '[[ $ZSH_VERSION == "${{ version }}" ]]'
       - zsh -c 'echo hi' | grep hi
       # Check that the installed PCRE2 module loads and matches; configure can silently omit it.
       - zsh -fc 'zmodload zsh/pcre && [[ abc -pcre-match "a.c" ]]'
