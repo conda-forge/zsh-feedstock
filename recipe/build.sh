@@ -18,9 +18,15 @@ else
     configure_args+=(--disable-cap)
 fi
 
+if [[ "$target_platform" == "linux-riscv64" ]]; then
+    # GDBM is not yet packaged for this platform on conda-forge.
+    configure_args+=(--disable-gdbm)
+else
+    configure_args+=(--enable-gdbm)
+fi
+
 ./configure --prefix="$PREFIX" \
     "${configure_args[@]}" \
-    --enable-gdbm \
     --enable-maildir-support \
     --enable-multibyte \
     --enable-pcre \
@@ -37,4 +43,7 @@ fi
 [[ "$CONDA_BUILD_CROSS_COMPILATION" != "1" ]] && make check
 
 make install
-make install.info
+# install.info requires makeinfo from texinfo, which is unavailable on linux-riscv64.
+# Install the upstream prebuilt Info manuals instead.
+install -d "$PREFIX/share/info"
+install -m 644 Doc/zsh.info* "$PREFIX/share/info/"

@@ -7,8 +7,11 @@ package:
   version: ${{ version }}
 
 source:
-  url: https://www.zsh.org/pub/zsh-${{ version }}.tar.xz
-  sha256: 36fa734374b44783582cec09bcd67822e2f992c779ec1624ab5596df078d2f81
+  - url: https://www.zsh.org/pub/zsh-${{ version }}.tar.xz
+    sha256: 36fa734374b44783582cec09bcd67822e2f992c779ec1624ab5596df078d2f81
+  # Prebuilt manuals avoid requiring texinfo, which is unavailable on linux-riscv64.
+  - url: https://www.zsh.org/pub/zsh-${{ version }}-doc.tar.xz
+    sha256: 020ee644be1749507b282e619cdcd95c56ff36144e79b7a3c245458aacd9458f
 
 build:
   number: ${{ build_number }}
@@ -21,21 +24,24 @@ requirements:
     - make
     - if: unix
       then: gnuconfig
-    - if: linux
-      then: texinfo
   host:
     - ncurses
     - pcre2
     - if: linux
       then: libcap
-    - gdbm
+    # GDBM is not yet packaged for linux-riscv64 on conda-forge.
+    - if: not riscv64
+      then: gdbm
 
 tests:
   - package_contents:
       bin:
         - zsh
       files:
-        - lib/zsh/${{ version }}/zsh/db/gdbm.bundle
+        - share/info/zsh.info
+        - share/man/man1/zsh.1
+        - if: not riscv64
+          then: lib/zsh/${{ version }}/zsh/db/gdbm.bundle
   - script:
       - zsh --version | grep -F "zsh ${{ version }} "
       # Verify prefix relocation did not overwrite a version string shared with a path.
@@ -45,7 +51,8 @@ tests:
       - zsh -fc 'zmodload zsh/pcre && [[ abc -pcre-match "a.c" ]]'
       - if: linux
         then: zsh -fc 'zmodload zsh/cap && cap'
-      - zsh -fc 'zmodload zsh/db/gdbm && ztie -d db/gdbm -f test.gdbm db && db[key]=value && zuntie db && ztie -d db/gdbm -f test.gdbm db && [[ $db[key] == value ]] && zuntie db'
+      - if: not riscv64
+        then: zsh -fc 'zmodload zsh/db/gdbm && ztie -d db/gdbm -f test.gdbm db && db[key]=value && zuntie db && ztie -d db/gdbm -f test.gdbm db && [[ $db[key] == value ]] && zuntie db'
 
 about:
   homepage: https://zsh.org/
