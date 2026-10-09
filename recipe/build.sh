@@ -20,6 +20,7 @@ fi
 
 ./configure --prefix="$PREFIX" \
     "${configure_args[@]}" \
+    --enable-gdbm \
     --enable-maildir-support \
     --enable-multibyte \
     --enable-pcre \

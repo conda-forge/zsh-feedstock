@@ -28,11 +28,14 @@ requirements:
     - pcre2
     - if: linux
       then: libcap
+    - gdbm
 
 tests:
   - package_contents:
       bin:
         - zsh
+      files:
+        - lib/zsh/${{ version }}/zsh/db/gdbm.bundle
   - script:
       - zsh --version | grep -F "zsh ${{ version }} "
       # Verify prefix relocation did not overwrite a version string shared with a path.
@@ -42,6 +45,7 @@ tests:
       - zsh -fc 'zmodload zsh/pcre && [[ abc -pcre-match "a.c" ]]'
       - if: linux
         then: zsh -fc 'zmodload zsh/cap && cap'
+      - zsh -fc 'zmodload zsh/db/gdbm && ztie -d db/gdbm -f test.gdbm db && db[key]=value && zuntie db && ztie -d db/gdbm -f test.gdbm db && [[ $db[key] == value ]] && zuntie db'
 
 about:
   homepage: https://zsh.org/
