@@ -8,15 +8,30 @@ cp $BUILD_PREFIX/share/gnuconfig/config.* .
 # Work around https://github.com/Homebrew/homebrew-core/pull/64923
 export CFLAGS+=" -Wno-implicit-function-declaration -Wno-implicit-int"
 
+configure_args=()
+if [[ "$target_platform" == linux-* ]]; then
+    # Keep ZSH_VERSION separate from relocatable paths such as $PREFIX/lib/zsh/<version>.
+    # Otherwise prefix replacement can zero out a shared version-string suffix.
+    export CFLAGS+=" -fno-merge-constants"
+    configure_args+=(--enable-cap)
+else
+    configure_args+=(--disable-cap)
+fi
+
+if [[ "$target_platform" == "linux-riscv64" ]]; then
+    # GDBM is not yet packaged for this platform on conda-forge.
+    configure_args+=(--disable-gdbm)
+else
+    configure_args+=(--enable-gdbm)
+fi
+
 ./configure --prefix="$PREFIX" \
-    --enable-cap \
+    "${configure_args[@]}" \
     --enable-maildir-support \
     --enable-multibyte \
     --enable-pcre \
     --enable-zsh-secure-free \
-    --with-tcsetpgrp \
-    DL_EXT=bundle \
-
+    DL_EXT=bundle
 
 make
 
@@ -28,4 +43,7 @@ fi
 [[ "$CONDA_BUILD_CROSS_COMPILATION" != "1" ]] && make check
 
 make install
-make install.info
+# install.info requires makeinfo from texinfo, which is unavailable on linux-riscv64.
+# Install the upstream prebuilt Info manuals instead.
+install -d "$PREFIX/share/info"
+install -m 644 Doc/zsh.info* "$PREFIX/share/info/"
