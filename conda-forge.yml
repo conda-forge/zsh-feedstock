@@ -9,7 +9,7 @@ github:
 provider:
   linux_64: default
   linux_aarch64: default
-  linux_ppc64le: default
+  linux_ppc64le: native # needed as otherwise QEMU emulation fails on A01grammar, B01cd and E03posix tests
   linux_riscv64: default
   osx_64: default
   osx_arm64: default
