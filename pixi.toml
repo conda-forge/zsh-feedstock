@@ -5,7 +5,7 @@
 
 [workspace]
 name = "zsh-feedstock"
-version = "2026.9.23"  # conda-smithy version used to generate this file
+version = "2026.11.6"  # conda-smithy version used to generate this file
 description = "Pixi configuration for conda-forge/zsh-feedstock"
 authors = ["@conda-forge/zsh"]
 channels = ["conda-forge"]
@@ -29,6 +29,7 @@ description = "Lint the feedstock recipe"
 [feature.build.dependencies]
 conda-build = ">=26.3"
 conda-forge-ci-setup = "4.*"
+python = "3.14.*"
 rattler-build = "*"
 
 [feature.build.tasks.inspect-all]
@@ -55,15 +56,6 @@ description = "Debug zsh-feedstock with variant linux_aarch64_ directly (without
 [feature.build.tasks."inspect-linux_aarch64_"]
 cmd = "inspect_artifacts --recipe-dir recipe -m .ci_support/linux_aarch64_.yaml"
 description = "List contents of zsh-feedstock packages built for variant linux_aarch64_"
-[feature.build.tasks."build-linux_ppc64le_"]
-cmd = "rattler-build build --recipe recipe -m .ci_support/linux_ppc64le_.yaml --target-platform linux-ppc64le"
-description = "Build zsh-feedstock with variant linux_ppc64le_ directly (without setup scripts)"
-[feature.build.tasks."debug-linux_ppc64le_"]
-cmd = "rattler-build debug setup --recipe recipe -m .ci_support/linux_ppc64le_.yaml --target-platform linux-ppc64le"
-description = "Debug zsh-feedstock with variant linux_ppc64le_ directly (without setup scripts)"
-[feature.build.tasks."inspect-linux_ppc64le_"]
-cmd = "inspect_artifacts --recipe-dir recipe -m .ci_support/linux_ppc64le_.yaml"
-description = "List contents of zsh-feedstock packages built for variant linux_ppc64le_"
 [feature.build.tasks."build-linux_riscv64_"]
 cmd = "rattler-build build --recipe recipe -m .ci_support/linux_riscv64_.yaml --target-platform linux-riscv64"
 description = "Build zsh-feedstock with variant linux_riscv64_ directly (without setup scripts)"
