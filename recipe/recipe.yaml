@@ -1,6 +1,6 @@
 context:
   version: "5.9.2"
-  build_number: 0
+  build_number: 1
 
 package:
   name: zsh
